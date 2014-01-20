@@ -43,12 +43,8 @@
     <target name="build" depends="jar">
         <java jar="build/lib/expression-evaluator.jar" fork="true"/>
     </target>
-    <target name="copyDocs">
-        <copydir src="Commands" dest="build/bin"/>
-        <copy file="README.md" tofile="build/README.txt"/>
-    </target>
-    <target name="dist" depends="build,removeClasses,copyDocs">
-        <zip zipfile="expression-evaluator" basedir="build"/>
+    <target name="dist" depends="build,removeClasses">
+        <zip zipfile="expression-evaluator.zip" basedir="build"/>
     </target>
     <target name="removeBuild">
         <delete dir="build"/>
