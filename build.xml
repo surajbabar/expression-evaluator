@@ -1,0 +1,56 @@
+<project name="expression-evaluator" default="dist">
+    <target name="createDest">
+        <mkdir dir="build"/>
+        <mkdir dir="build/classes"/>
+        <mkdir dir="build/classes/tests"/>
+        <mkdir dir="build/lib"/>
+        <mkdir dir="build/bin"/>
+    </target>
+    <target name="compile" depends="createDest">
+        <javac srcdir="src" destdir="build/classes" includeantruntime="false"/>
+        <javac srcdir="tests" destdir="build/classes/tests" classpath="lib/junit-4.10.jar;build/classes"
+               includeantruntime="false"/>
+    </target>
+    <target name="test" depends="compile">
+        <junit>
+            <classpath>
+                <pathelement location="build/classes"/>
+                <pathelement location="build/classes/tests"/>
+                <pathelement location="lib/junit-4.10.jar"/>
+            </classpath>
+            <batchtest haltonfailure="true">
+                <fileset dir="build/classes/tests">
+                    <include name="**/*Test*"/>
+                </fileset>
+            </batchtest>
+            <formatter type="brief" usefile="false" />
+        </junit>
+    </target>
+    <target name="removeClasses">
+        <delete dir="build/classes"/>
+    </target>
+
+    <target name="removeTests">
+        <delete dir="build/classes/tests"/>
+    </target>
+    <target name="jar" depends="test,removeTests">
+        <jar destfile="build/lib/expression-evaluator.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="Client.User"/>
+            </manifest>
+        </jar>
+    </target>
+    <target name="build" depends="jar">
+        <java jar="build/lib/expression-evaluator.jar" fork="true"/>
+    </target>
+    <target name="copyDocs">
+        <copydir src="Commands" dest="build/bin"/>
+        <copy file="README.md" tofile="build/README.txt"/>
+    </target>
+    <target name="dist" depends="build,removeClasses,copyDocs">
+        <zip zipfile="expression-evaluator" basedir="build"/>
+    </target>
+    <target name="removeBuild">
+        <delete dir="build"/>
+    </target>
+</project>
