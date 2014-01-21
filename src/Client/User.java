@@ -4,7 +4,7 @@ import surajbab.evaluator.Exp_evaluator;
 
 public class User {
     public static void main(String[] args) {
-        Exp_evaluator expEval = new Exp_evaluator();
-        System.out.println(expEval.evaluate("2+3"));
+        Exp_evaluator evaluator = new Exp_evaluator();
+        System.out.println(evaluator.evaluate(args[0]));
     }
 }
