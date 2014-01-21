@@ -53,7 +53,7 @@
         <copy file="README.md" tofile="build/README.txt"/>
     </target>
     <target name="dist" depends="build,removeClasses,copyDocs">
-        <zip zipfile="expression-evaluator.zip" basedir="build"/>
+        <zip zipfile="evaluator-0.1.zip" basedir="build"/>
     </target>
     <target name="removeBuild">
         <delete dir="build"/>
