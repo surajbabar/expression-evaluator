@@ -19,6 +19,7 @@ Release 0.1:-
 eg.
     	4+2 will result 6
     	4-2 will result 2
-	4*2 will result 8
-	4/2 will result 2
-	4^2 will result 16
+	    4*2 will result 8
+	    4/2 will result 2
+	    4^2 will result 16
+	use  exp_eval.sh [expression] to use evaluator.
