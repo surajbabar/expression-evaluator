@@ -1,11 +1,12 @@
 package surajbab.evaluator;
 
 public class Exp_evaluator {
-    public int evaluate(String Exp){
+    public Double evaluate(String Exp){
         Exp=Exp.replaceAll(" +", "");
-        int result=0;
+         double result=1;
         Integer Numbers[] =getNumbers(Exp);
-
+        if(Numbers.length ==1)
+            return Double.valueOf(Numbers[0]);
         if(Exp.charAt(1)=='+') {
             result =Numbers[0]+Numbers[1];
         }
@@ -19,7 +20,7 @@ public class Exp_evaluator {
             result =Numbers[0]/Numbers[1];
         }
         if(Exp.charAt(1)=='^') {
-            result =Numbers[0]^Numbers[1];
+               result =Math.pow(Numbers[0],Numbers[1]);
         }
         return result;
     }
