@@ -1,1 +1,1 @@
-java -cp $EXP_HOME/lib/expression-evaluator.jar Client.User $@
+java -cp $EVALUATOR_HOME/lib/expression-evaluator.jar Client.User $@
