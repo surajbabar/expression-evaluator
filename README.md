@@ -13,6 +13,17 @@ INSTALLATION
 4.add $EXP_HOME/bin variable in users path variable.
 5.use exp_eval.sh command to use expression evaluator.
 
+Release 0.2:-
+It can evaluate an expression with positive numbers and following operators
+	+,-,*,/,^
+eg.
+	4+2*3 will result 18.0
+    	4-2/2 will result 0.0
+	4*2 will result 8.0
+	4/2+2 will result 4.0
+	4^2 will result 16.0
+	use  exp_eval.sh [expression] to use evaluator.
+
 Release 0.1:-
  it can evaluate expression of two positive integers with following operators
 	+,-,*,/,^
