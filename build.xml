@@ -45,14 +45,11 @@
             </manifest>
         </jar>
     </target>
-    <target name="build" depends="jar">
-        <java jar="build/lib/expression-evaluator.jar" fork="true"/>
-    </target>
     <target name="copyDocs">
         <copy file="Commands/exp_eval.sh" todir="build/bin"/>
         <copy file="README.md" tofile="build/README.txt"/>
     </target>
-    <target name="dist" depends="build,removeClasses,copyDocs">
+    <target name="dist" depends="jar,removeClasses,copyDocs">
         <zip zipfile="evaluator-0.1.zip" basedir="build"/>
     </target>
     <target name="removeBuild">
