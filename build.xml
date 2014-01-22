@@ -50,7 +50,7 @@
         <copy file="README.md" tofile="build/README.txt"/>
     </target>
     <target name="dist" depends="jar,removeClasses,copyDocs">
-        <zip zipfile="evaluator-0.1.zip" basedir="build"/>
+        <zip zipfile="evaluator-0.2.zip" basedir="build"/>
     </target>
     <target name="removeBuild">
         <delete dir="build"/>
