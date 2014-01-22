@@ -7,19 +7,19 @@ public class Exp_evaluator {
         Integer Numbers[] =getNumbers(Exp);
         if(Numbers.length ==1)
             return Double.valueOf(Numbers[0]);
-        if(Exp.charAt(1)=='+') {
+        if(Exp.contains("+")) {
             result =Numbers[0]+Numbers[1];
         }
-        if(Exp.charAt(1)=='-') {
+        if(Exp.contains("-")) {
             result =Numbers[0]-Numbers[1];
         }
-        if(Exp.charAt(1)=='*') {
+        if(Exp.contains("*")) {
             result =Numbers[0]*Numbers[1];
         }
-        if(Exp.charAt(1)=='/') {
+        if(Exp.contains("/")) {
             result =Numbers[0]/Numbers[1];
         }
-        if(Exp.charAt(1)=='^') {
+        if(Exp.contains("^")) {
                result =Math.pow(Numbers[0],Numbers[1]);
         }
         return result;

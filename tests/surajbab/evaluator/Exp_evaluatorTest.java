@@ -19,7 +19,7 @@ public class Exp_evaluatorTest {
 
     @Test
     public void testEvaluateForTwoPositiveIntegersAndDivide() throws Exception {
-        assertEquals(1.0, expression.evaluate("1   /1"));
+        assertEquals(3.0, expression.evaluate("22/7"));
     }
 
     @Test
