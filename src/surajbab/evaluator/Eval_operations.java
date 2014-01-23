@@ -49,7 +49,6 @@ public class Eval_operations {
     public Double solveExpression(String Exp) {
         Double Numbers[] = getNumbers(Exp);
         Character Operators[] = getOperators(Exp);
-
         if (Numbers.length == 1)
             return Numbers[0];
         Double result = Numbers[0];
@@ -69,6 +68,7 @@ public class Eval_operations {
             startIndex = Exp.lastIndexOf('(') + 1;
             endIndex = Exp.indexOf(')', startIndex);
         }
+
         return Exp;
     }
 
