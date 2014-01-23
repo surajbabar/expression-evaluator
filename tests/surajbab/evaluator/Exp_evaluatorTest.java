@@ -89,4 +89,29 @@ public class Exp_evaluatorTest {
     public void testEvaluateForSevenFloatsAndSixOperators() throws Exception {
         assertEquals(24.55, expression.evaluate("2.5+3.5-3.5*2.5/3.5*5.5*2.5"));
     }
+    //brackets testing
+    @Test
+    public void testEvaluateForTwoPositiveIntegersAndPlusWithBracket() throws Exception {
+        assertEquals(346.0, expression.evaluate("345+(0   +1)"));
+    }
+    @Test
+    public void testEvaluateForTwoPositiveIntegersWithTwoBracket() throws Exception {
+        assertEquals(346.0, expression.evaluate("(345)+(0   +1)"));
+    }
+    @Test
+    public void testEvaluateForTwoPositiveIntegersWithMultipleBrackets() throws Exception {
+        assertEquals(346.0, expression.evaluate("((345)+(0   +1))"));
+    }
+    @Test
+    public void testEvaluateForTwoPositiveIntegersWithMultipleBrackets1() throws Exception {
+        assertEquals(350.0, expression.evaluate("((345)+5*(0   +1))"));
+    }
+    @Test
+    public void testEvaluateForTwoPositiveIntegersWithMultipleBrackets2() throws Exception {
+        assertEquals(376.0, expression.evaluate("((345)+32-(0   +1))"));
+    }
+    @Test
+    public void testEvaluateForAnyNumberWithAnyOperatorAndMultipleBrackets() throws Exception {
+        assertEquals(354.34, expression.evaluate("((345.34)+32-(0   +1*23.0))"));
+    }
 }
