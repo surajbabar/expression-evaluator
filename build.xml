@@ -1,58 +1,130 @@
-<project name="expression-evaluator" default="dist">
-    <target name="createDest">
-        <mkdir dir="build"/>
-        <mkdir dir="build/classes"/>
-        <mkdir dir="build/classes/tests"/>
-        <mkdir dir="build/lib"/>
-        <mkdir dir="build/bin"/>
-    </target>
-    <target name="compile" depends="createDest">
-        <javac srcdir="src" destdir="build/classes" includeantruntime="false"/>
-        <javac srcdir="tests" destdir="build/classes/tests" classpath="lib/junit-4.10.jar;build/classes"
-               includeantruntime="false"/>
-    </target>
-    <target name="test" depends="compile">
-                <junit failureproperty="junit.failure" >
-                    <classpath>
-                        <pathelement location="build/classes"/>
-                        <pathelement location="build/classes/tests"/>
-                        <pathelement location="lib/junit-4.10.jar"/>
-                    </classpath>
-                    <batchtest>
-                        <fileset dir="build/classes/tests">
-                            <include name="**/*Test*"/>
-                        </fileset>
-                    </batchtest>
-                    <formatter type="brief" usefile="false" />
-                </junit>
-        <fail message="Some tests failed - Build failed" status="2">
-            <condition>
-                <isset property="junit.failure" />
-            </condition>
-        </fail>
-        </target>
-    <target name="removeClasses">
-        <delete dir="build/classes"/>
+<project name="expression-evaluator" default = "dist">
+
+    <target name="starting">
+        <mkdir dir="build/tests"/>
+        <mkdir dir="build/src"/>
+        <mkdir dir="build/code-coverage/instrumented"/>
+        <mkdir dir="build/code-coverage/reports/xml"/>
+        <mkdir dir="build/code-coverage/reports/html"/>
+        <mkdir dir="build/code-coverage/coverage/xml"/>
+        <mkdir dir="build/code-coverage/coverage/html"/>
+        <mkdir dir="build/code-coverage/coverage/summary-xml"/>
     </target>
 
-    <target name="removeTests">
-        <delete dir="build/classes/tests"/>
+    <target name="compile" depends="starting">
+        <javac srcdir="src" destdir="build/src" debug="yes" includeantruntime="false">
+            <classpath refid="cobertura.classpath" />
+        </javac>
+        <javac srcdir="tests" destdir="build/tests"
+               classpath="build/src;external-lib/junit-4.10.jar" debug="yes"  includeantruntime="false">
+            <classpath refid="cobertura.classpath" />
+        </javac>
     </target>
-    <target name="jar" depends="test,removeTests">
-        <jar destfile="build/lib/expression-evaluator.jar" basedir="build/classes">
-            <manifest>
-                <attribute name="Main-Class" value="Client.User"/>
-            </manifest>
-        </jar>
+
+    <path id="cobertura.classpath">
+        <fileset dir="external-lib">
+            <include name="cobertura-2.0.3.jar" />
+            <include name="lib/**/*.jar" />
+        </fileset>
+    </path>
+    <taskdef classpathref="cobertura.classpath" resource="tasks.properties"/>
+
+    <target name="test" depends="compile">
+        <junit>
+            <classpath>
+                <pathelement location="build/src"/>
+                <pathelement location="build/tests"/>
+                <pathelement location="external-lib/junit-4.10.jar"/>
+            </classpath>
+            <batchtest >
+                <fileset dir="build/tests">
+                    <include name="**/*Test*"/>
+                </fileset>
+            </batchtest>
+            <formatter type="brief" usefile="false"/>
+        </junit>
     </target>
-    <target name="copyDocs">
-        <copy file="Commands/exp_eval.sh" todir="build/bin"/>
-        <copy file="README.md" tofile="build/README.txt"/>
+    <target name="instrument" depends="test">
+        <delete file="cobertura.ser"/>
+        <delete dir="build/code-coverage/instrumented" />
+        <cobertura-instrument todir="build/code-coverage/instrumented">
+            <fileset dir="build/src">
+                <include name="**/*.class" />
+            </fileset>
+        </cobertura-instrument>
     </target>
-    <target name="dist" depends="jar,removeClasses,copyDocs">
-        <zip zipfile="evaluator-0.2.zip" basedir="build"/>
+
+    <target name="test-coverage" depends="test">
+        <junit fork="yes" dir="." failureProperty="test.failed">
+            <classpath>
+                <pathelement location="build/code-coverage/instrumented"/>
+                <pathelement location="build/src" />
+                <pathelement location="build/tests" />
+                <pathelement location="external-lib/junit-4.10.jar"/>
+            </classpath>
+
+            <classpath refid= "cobertura.classpath"/>
+
+            <formatter type="xml" />
+            <test name="testcase" todir="build/code-coverage/reports/xml" if="testcase" />
+            <batchtest todir="build/code-coverage/reports/xml" unless="testcase">
+                <fileset dir="tests">
+                    <include name="**/*Test.java" />
+                </fileset>
+            </batchtest>
+        </junit>
+        <junitreport todir="build/code-coverage/reports/xml">
+            <fileset dir="build/code-coverage/reports/xml">
+                <include name="TEST-*.xml" />
+            </fileset>
+            <report format="frames" todir="build/code-coverage/reports/html" />
+        </junitreport>
     </target>
-    <target name="removeBuild">
+
+    <target name="coverage-check">
+        <cobertura-check branchrate="34" totallinerate="100" />
+    </target>
+    <target name="coverage-report">
+        <cobertura-report srcdir="src" destdir="build/code-coverage/coverage/xml" format="xml" />
+    </target>
+
+    <target name="summary-coverage-report">
+        <cobertura-report srcdir="src" destdir="build/code-coverage/coverage/summaryxml" format="summaryXml" />
+    </target>
+
+    <target name="alternate-coverage-report">
+        <cobertura-report destdir="build/code-coverage/coverage/html">
+            <fileset dir="src">
+                <include name="**/*.java"/>
+            </fileset>
+        </cobertura-report>
+    </target>
+
+    <target name="coverage"
+            depends="instrument,test-coverage,coverage-report,summary-coverage-report,alternate-coverage-report"
+            description="Compile, instrument ourself, run the tests and generate JUnit and coverage reports.">
+    </target>
+    <target name="createJar" depends="coverage">
+        <mkdir dir="expression-evaluator/lib"/>
+        <mkdir dir="expression-evaluator/bin"/>
+        <jar destfile="expression-evaluator/lib/unix-tools.jar" basedir="build/src"/>
+    </target>
+
+    <target name="copyScripts" depends="createJar">
+        <copydir src="Commands" dest="build/bin"/>
+    </target>
+
+    <target name="copyReadme" depends="copyScripts">
+        <copy file="README.md" todir="expression-evaluator"/>
+    </target>
+
+    <target name="dist" depends="copyReadme">
+        <zip zipfile="evaluator-0.2.zip" basedir="expression-evaluator"/>
+    </target>
+
+    <target name="clean">
         <delete dir="build"/>
+        <delete dir="expression-evaluator"/>
+        <delete file="evaluator-0.2.zip"/>
     </target>
 </project>
