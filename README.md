@@ -13,6 +13,14 @@ INSTALLATION
 4.add $EXP_HOME/bin variable in users path variable.
 5.use exp_eval.sh command to use expression evaluator.
 
+Release 0.4:-
+It can evaluate an expression with Multiple brackets and following Operators
+        +,-,*,/,^
+   eg.
+        4.34+(2.32*3.2) will result 11.76
+
+    use  exp_eval.sh [expression] to use evaluator.
+
 Release 0.3:-
 It can evaluate an expression with positive float numbers and following operators
         +,-,*,/,^
