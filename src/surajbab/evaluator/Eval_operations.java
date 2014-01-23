@@ -30,7 +30,7 @@ public class Eval_operations {
         return operators.toArray(new Character[operators.size()]);
     }
 
-    public double calculate(double first, char operator, double second) {
+    public Double calculate(Double first, char operator, Double second) {
         switch (operator) {
             case '+':
                 return first + second;
@@ -43,6 +43,33 @@ public class Eval_operations {
             case '^':
                 return Math.pow(first, second);
         }
-        return 0;
+        return 0.0;
     }
+
+    public Double solveExpression(String Exp) {
+        Double Numbers[] = getNumbers(Exp);
+        Character Operators[] = getOperators(Exp);
+
+        if (Numbers.length == 1)
+            return Numbers[0];
+        Double result = Numbers[0];
+        int i = 1;
+        for (char operator : Operators)
+            result = calculate(result, operator, Numbers[i++]);
+        result = (double) Math.round(result * 100);
+        return result / 100;
+    }
+
+    public String solveBracket(String Exp) {
+        int startIndex = Exp.lastIndexOf('(') + 1;
+        int endIndex = Exp.indexOf(')', startIndex);
+        while (startIndex - 1 != endIndex) {
+            String subExp = Exp.substring(startIndex, endIndex);
+            Exp = Exp.replace("(" + subExp + ")", "" + solveExpression(subExp) + "");
+            startIndex = Exp.lastIndexOf('(') + 1;
+            endIndex = Exp.indexOf(')', startIndex);
+        }
+        return Exp;
+    }
+
 }

@@ -56,4 +56,22 @@ public class Eval_operationsTest {
         double actual=operations.calculate(4.43,'%',3.34);
         assertEquals(0.0, actual);
     }
+    @Test
+    public void testSolveBracketsGivesASimplexExpression() throws Exception {
+        String expected ="3.0+4.0-2.0";
+        String actual=operations.solveBracket("(3)+(4)-(2)");
+        assertEquals(expected, actual);
+    }
+    @Test
+    public void testSolveBracketsGivesResultIfExpressionIsInBrackets() throws Exception {
+        String expected ="5.0";
+        String actual=operations.solveBracket("((3)+(4)-(2))");
+        assertEquals(expected, actual);
+    }
+    @Test
+    public void testSolveExpressionGivesAppropriateResults() throws Exception {
+        Double expected =5.0;
+        Double actual=operations.solveExpression("3+4-2");
+        assertEquals(expected, actual);
+    }
 }
