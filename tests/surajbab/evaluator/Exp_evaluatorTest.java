@@ -19,7 +19,7 @@ public class Exp_evaluatorTest {
 
     @Test
     public void testEvaluateForTwoPositiveIntegersAndDivide() throws Exception {
-        assertEquals(3.0, expression.evaluate("22/7"));
+        assertEquals(3.14, expression.evaluate("22/7"));
     }
 
     @Test
@@ -34,5 +34,17 @@ public class Exp_evaluatorTest {
     @Test
     public void testEvaluateForOneInteger() throws Exception {
         assertEquals(2.0, expression.evaluate("2"));
+    }
+    @Test
+    public void testEvaluateForThreeIntegersAndTwoOperators() throws Exception {
+        assertEquals(2.0, expression.evaluate("2+3-3"));
+    }
+    @Test
+    public void testEvaluateForFiveIntegersAndFourOperators() throws Exception {
+        assertEquals(1.33, expression.evaluate("2+3-3*2/3"));
+    }
+    @Test
+    public void testEvaluateForSevenIntegersAndSixOperators() throws Exception {
+        assertEquals(13.33, expression.evaluate("2+3-3*2/3*5*2"));
     }
 }

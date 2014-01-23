@@ -29,4 +29,20 @@ public class Eval_operations {
         }
         return operators.toArray(new Character[operators.size()]);
     }
+
+    public double calculate(double first, char operator, double second) {
+        switch (operator) {
+            case '+':
+                return first + second;
+            case '-':
+                return first - second;
+            case '*':
+                return first * second;
+            case '/':
+                return first / second;
+            case '^':
+                return Math.pow(first, second);
+        }
+        return 0;
+    }
 }
