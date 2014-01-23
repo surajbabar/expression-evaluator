@@ -5,15 +5,15 @@ import java.util.ArrayList;
 public class Eval_operations {
     char Operators[] = {'+', '-', '*', '/', '^'};
 
-    public Integer[] getNumbers(String numbers) {
+    public Double[] getNumbers(String numbers) {
         for (char operator : Operators)
             numbers = numbers.replace(operator, ' ');
 
         String numbersInString[] = numbers.split(" ");
-        Integer[] Numbers = new Integer[numbersInString.length];
+        Double[] Numbers = new Double[numbersInString.length];
 
         for (int i = 0; i < numbersInString.length; i++)
-            Numbers[i] = Integer.parseInt(numbersInString[i]);
+            Numbers[i] = Double.parseDouble(numbersInString[i]);
 
         return Numbers;
     }

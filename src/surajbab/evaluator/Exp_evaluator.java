@@ -7,11 +7,11 @@ public class Exp_evaluator {
         Exp = Exp.replaceAll(" +", "");
         double result = 1;
         int i=1;
-        Integer Numbers[] = operations.getNumbers(Exp);
+        Double Numbers[] = operations.getNumbers(Exp);
         Character[] Operators = operations.getOperators(Exp);
 
         if (Numbers.length == 1)
-            return Double.valueOf(Numbers[0]);
+            return Numbers[0];
         result=Numbers[0];
         for (char operator : Operators)
        result= operations.calculate(result,operator,Numbers[i++]);

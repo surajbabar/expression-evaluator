@@ -47,4 +47,46 @@ public class Exp_evaluatorTest {
     public void testEvaluateForSevenIntegersAndSixOperators() throws Exception {
         assertEquals(13.33, expression.evaluate("2+3-3*2/3*5*2"));
     }
+    //float testing
+    @Test
+    public void testEvaluateForOneFloat() throws Exception {
+        assertEquals(2.98, expression.evaluate("2.98"));
+    }
+    @Test
+    public void testEvaluateForTwoPositiveFloatsAndPlus() throws Exception {
+        assertEquals(1.6, expression.evaluate("0.3   +1.3"));
+    }
+
+    @Test
+    public void testEvaluateForTwoPositiveFloatsAndMinus() throws Exception {
+        assertEquals(0.0, expression.evaluate("1.5   -1.5"));
+    }
+
+    @Test
+    public void testEvaluateForTwoPositiveFloatsAndDivide() throws Exception {
+        assertEquals(3.14, expression.evaluate("22.00/7.00"));
+    }
+
+    @Test
+    public void testEvaluateForTwoPositiveFloatsAndMultiplication() throws Exception {
+        assertEquals(2.89, expression.evaluate("1.7   *1.7"));
+    }
+    @Test
+    public void testEvaluateForTwoPositiveFloatsAndPower() throws Exception {
+        assertEquals(65.26, expression.evaluate("4.7   ^2.7"));
+    }
+
+    @Test
+    public void testEvaluateForThreeFloatsAndTwoOperators() throws Exception {
+        assertEquals(2.50, expression.evaluate("2.5+3.5-3.5"));
+    }
+
+    @Test
+    public void testEvaluateForFiveFloatsAndFourOperators() throws Exception {
+        assertEquals(1.79, expression.evaluate("2.5+3.5-3.5*2.5/3.5"));
+    }
+    @Test
+    public void testEvaluateForSevenFloatsAndSixOperators() throws Exception {
+        assertEquals(24.55, expression.evaluate("2.5+3.5-3.5*2.5/3.5*5.5*2.5"));
+    }
 }
