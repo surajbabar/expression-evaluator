@@ -105,13 +105,13 @@
             description="Compile, instrument ourself, run the tests and generate JUnit and coverage reports.">
     </target>
     <target name="createJar" depends="coverage">
-        <mkdir dir="expression-evaluator/lib"/>
-        <mkdir dir="expression-evaluator/bin"/>
-        <jar destfile="expression-evaluator/lib/expression-evaluator.jar" basedir="build/src"/>
+        <mkdir dir="build/dist/lib"/>
+        <mkdir dir="build/dist/bin"/>
+        <jar destfile="build/dist/lib/expression-evaluator.jar" basedir="build/src"/>
     </target>
 
     <target name="copyScripts" depends="createJar">
-        <copydir src="Commands" dest="expression-evaluator/bin"/>
+        <copydir src="Commands" dest="build/dist/bin"/>
     </target>
 
     <target name="copyReadme" depends="copyScripts">
