@@ -19,7 +19,7 @@ public class Exp_evaluatorTest {
 
     @Test
     public void testEvaluateForTwoPositiveIntegersAndDivide() throws Exception {
-        assertEquals(3.14, expression.evaluate("22/7"));
+        assertEquals(3.142857142857143, expression.evaluate("22/7"));
     }
 
     @Test
@@ -41,11 +41,11 @@ public class Exp_evaluatorTest {
     }
     @Test
     public void testEvaluateForFiveIntegersAndFourOperators() throws Exception {
-        assertEquals(1.33, expression.evaluate("2+3-3*2/3"));
+        assertEquals(1.3333333333333333, expression.evaluate("2+3-3*2/3"));
     }
     @Test
     public void testEvaluateForSevenIntegersAndSixOperators() throws Exception {
-        assertEquals(13.33, expression.evaluate("2+3-3*2/3*5*2"));
+        assertEquals(13.333333333333332, expression.evaluate("2+3-3*2/3*5*2"));
     }
     //float testing
     @Test
@@ -64,16 +64,16 @@ public class Exp_evaluatorTest {
 
     @Test
     public void testEvaluateForTwoPositiveFloatsAndDivide() throws Exception {
-        assertEquals(3.14, expression.evaluate("22.00/7.00"));
+        assertEquals(3.142857142857143, expression.evaluate("22.00/7.00"));
     }
 
     @Test
     public void testEvaluateForTwoPositiveFloatsAndMultiplication() throws Exception {
-        assertEquals(2.89, expression.evaluate("1.7   *1.7"));
+        assertEquals(2.8899999999999997, expression.evaluate("1.7   *1.7"));
     }
     @Test
     public void testEvaluateForTwoPositiveFloatsAndPower() throws Exception {
-        assertEquals(65.26, expression.evaluate("4.7   ^2.7"));
+        assertEquals(65.26257667020582, expression.evaluate("4.7   ^2.7"));
     }
 
     @Test
@@ -83,11 +83,11 @@ public class Exp_evaluatorTest {
 
     @Test
     public void testEvaluateForFiveFloatsAndFourOperators() throws Exception {
-        assertEquals(1.79, expression.evaluate("2.5+3.5-3.5*2.5/3.5"));
+        assertEquals(1.7857142857142858, expression.evaluate("2.5+3.5-3.5*2.5/3.5"));
     }
     @Test
     public void testEvaluateForSevenFloatsAndSixOperators() throws Exception {
-        assertEquals(24.55, expression.evaluate("2.5+3.5-3.5*2.5/3.5*5.5*2.5"));
+        assertEquals(24.553571428571427, expression.evaluate("2.5+3.5-3.5*2.5/3.5*5.5*2.5"));
     }
     //brackets testing
     @Test
@@ -113,5 +113,13 @@ public class Exp_evaluatorTest {
     @Test
     public void testEvaluateForAnyNumberWithAnyOperatorAndMultipleBrackets() throws Exception {
         assertEquals(354.34, expression.evaluate("((345.34)+32-(0   +1*23.0))"));
+    }
+    @Test
+    public void testEvaluateForMinusNumber() throws Exception {
+        assertEquals(-1.0, expression.evaluate("-1^-1"));
+    }
+    @Test
+    public void testEvaluateForAccurateResult() throws Exception {
+        assertEquals(7.333333333333333, expression.evaluate("22/3"));
     }
 }

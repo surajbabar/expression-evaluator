@@ -1,14 +1,10 @@
 package surajbab.evaluator;
 
-import java.text.DecimalFormat;
-
 public class Exp_evaluator {
     Eval_operations operations = new Eval_operations();
 
-    public Double evaluate(String Exp){
-        DecimalFormat df=new DecimalFormat("0.00");
+    public Double evaluate(String Exp) {
         Exp = operations.solveBracket(Exp);
-        String format = df.format(operations.solveExpression(Exp));
-        return Double.parseDouble(format) ;
+        return operations.solveExpression(Exp);
     }
 }

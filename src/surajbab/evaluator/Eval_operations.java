@@ -58,8 +58,13 @@ public class Eval_operations {
         Double Numbers[] = getNumbers(Exp);
         if (Numbers.length <= 1)
             return Double.parseDouble(Exp);
+        double result = Numbers[0];
+        if(Exp.startsWith("-")){
+               result=-result;
+               Exp=Exp.substring(1);
+        }
         Character Operators[] = getOperators(Exp);
-        Double result = Numbers[0];
+
         int i = 1;
         for (char operator : Operators)
             result = calculate(result, operator, Numbers[i++]);
