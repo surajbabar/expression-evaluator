@@ -119,12 +119,12 @@
     </target>
 
     <target name="dist" depends="copyReadme">
-        <zip zipfile="evaluator-0.4.zip" basedir="expression-evaluator"/>
+        <zip zipfile="evaluator-0.5.zip" basedir="expression-evaluator"/>
     </target>
 
     <target name="clean">
         <delete dir="build"/>
         <delete dir="expression-evaluator"/>
-        <delete file="evaluator-0.4.zip"/>
+        <delete file="evaluator-0.5.zip"/>
     </target>
 </project>
