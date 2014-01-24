@@ -74,4 +74,16 @@ public class Eval_operationsTest {
         Double actual=operations.solveExpression("3+4-2");
         assertEquals(expected, actual);
     }
+    @Test
+    public void testSolveExpressionGivesStringAsDoubleIfItIsNotSolvable() throws Exception {
+        Double expected =-12.0;
+        Double actual=operations.solveExpression("-12");
+        assertEquals(expected, actual);
+    }
+    @Test
+    public void testSolveBracketsGivesStringBackIfItIsNotSolvable() throws Exception {
+        String expected ="3-+4)-2";
+        String actual=operations.solveBracket("3-(+4)-2");
+        assertEquals(expected, actual);
+    }
 }
