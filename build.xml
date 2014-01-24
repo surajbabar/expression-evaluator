@@ -119,7 +119,7 @@
     </target>
 
     <target name="dist" depends="copyReadme">
-        <zip zipfile="evaluator-0.5.zip" basedir="expression-evaluator"/>
+        <zip zipfile="evaluator-0.5.zip" basedir="build/dist"/>
     </target>
 
     <target name="clean">

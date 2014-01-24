@@ -6,13 +6,12 @@ public class Eval_operations {
     char Operators[] = {'+', '-', '*', '^', '/', '_', '@', '#'};
 
     public Double[] getNumbers(String numbers) {
-        numbers = numbers.replaceAll("[-*/^+]", " ");
-        String numbersInString[] = numbers.split(" +");
+        String Number[] = numbers.replaceAll("[-*/^+]", "a").split("a");
         ArrayList<Double> Numbers = new ArrayList<Double>();
-        int j = 0;
-        for (int i = 0; i < numbersInString.length; i++){
-            if(numbersInString[i].isEmpty())continue;
-            Numbers.add(Double.parseDouble(numbersInString[i]));
+
+        for (String number : Number) {
+            if (number.isEmpty()) continue;
+            Numbers.add(Double.parseDouble(number));
         }
         return Numbers.toArray(new Double[Numbers.size()]);
     }
@@ -57,15 +56,14 @@ public class Eval_operations {
     public Double solveExpression(String Exp) {
         if (Exp.length() <= 2) return Double.parseDouble(Exp);
         Double Numbers[] = getNumbers(Exp);
-        Character Operators[] = getOperators(Exp);
         if (Numbers.length <= 1)
             return Double.parseDouble(Exp);
+        Character Operators[] = getOperators(Exp);
         Double result = Numbers[0];
         int i = 1;
         for (char operator : Operators)
             result = calculate(result, operator, Numbers[i++]);
-        result = (double) Math.round(result * 100);
-        return result / 100;
+        return result;
     }
 
     public String solveBracket(String Exp) {

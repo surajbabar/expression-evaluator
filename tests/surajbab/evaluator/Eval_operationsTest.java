@@ -13,7 +13,7 @@ public class Eval_operationsTest {
     @Test
     public void testGetNumbersGivesOnlyNumbersFromString() throws Exception {
         Double[] expected = {22.00, 43.00, 23.00, 12.00};
-        assertArrayEquals(expected, operations.getNumbers("22 43 23 12"));
+        assertArrayEquals(expected, operations.getNumbers("22a43a23a12"));
 
     }
 
@@ -43,14 +43,14 @@ public class Eval_operationsTest {
     }
     @Test
     public void testSolveExpressionGivesCorrectResultFor_PowerMinusOperator() throws Exception {
-        Double expected=0.2;
+        Double expected=0.19753086419753083;
         Double actual=operations.solveExpression("2*-3/-4^-1^4");
         assertEquals(expected, actual);
     }
 
     @Test
     public void testSolveExpressionGivesCorrectResultFor_MinusNumberInBracket() throws Exception {
-        Double expected=0.2;
+        Double expected=0.19753086419753083;
         String expression =operations.solveBracket("2*-3/(-4)^-1^4");
         Double actual =operations.solveExpression(expression);
         assertEquals(expected, actual);

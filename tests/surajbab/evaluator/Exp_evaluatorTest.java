@@ -114,6 +114,4 @@ public class Exp_evaluatorTest {
     public void testEvaluateForAnyNumberWithAnyOperatorAndMultipleBrackets() throws Exception {
         assertEquals(354.34, expression.evaluate("((345.34)+32-(0   +1*23.0))"));
     }
-
-
 }
