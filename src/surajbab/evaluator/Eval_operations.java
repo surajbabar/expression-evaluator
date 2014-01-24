@@ -3,31 +3,32 @@ package surajbab.evaluator;
 import java.util.ArrayList;
 
 public class Eval_operations {
-    char Operators[] = {'+', '-', '*', '/', '^'};
+    char Operators[] = {'+', '-', '*', '^', '/', '_', '@', '#'};
 
     public Double[] getNumbers(String numbers) {
-        for (char operator : Operators)
-            numbers = numbers.replace(operator, ' ');
-
-        String numbersInString[] = numbers.split(" ");
-        Double[] Numbers = new Double[numbersInString.length];
-        int j=0;
+        numbers = numbers.replaceAll("[-*/^+]", " ");
+        String numbersInString[] = numbers.split(" +");
+        ArrayList<Double> Numbers = new ArrayList<Double>();
+        int j = 0;
         for (int i = 0; i < numbersInString.length; i++){
-            if(numbersInString[i].isEmpty()) continue;
-            Numbers[j++] = Double.parseDouble(numbersInString[i]);
+            if(numbersInString[i].isEmpty())continue;
+            Numbers.add(Double.parseDouble(numbersInString[i]));
         }
-        return Numbers;
+        return Numbers.toArray(new Double[Numbers.size()]);
     }
 
     public Character[] getOperators(String expression) {
         ArrayList<Character> operators = new ArrayList<Character>();
+        expression = expression.replaceAll("\\++|\\--", "+");
+        expression = expression.replaceAll("\\+-|\\-+", "-");
+        expression = expression.replaceAll("\\*-", "@");
+        expression = expression.replaceAll("/-", "#");
+        expression = expression.replaceAll("\\^-", "_");
 
-        for (char c : expression.toCharArray()) {
+        for (char c : expression.toCharArray())
             for (char operator : Operators)
-                if (c == operator) {
-                    operators.add(c);
-                }
-        }
+                if (c == operator) operators.add(c);
+
         return operators.toArray(new Character[operators.size()]);
     }
 
@@ -43,17 +44,22 @@ public class Eval_operations {
                 return first / second;
             case '^':
                 return Math.pow(first, second);
+            case '_':
+                return Math.pow(first, -second);
+            case '@':
+                return first * -second;
+            case '#':
+                return first / -second;
         }
         return 0.0;
     }
 
     public Double solveExpression(String Exp) {
-        if(Exp.length()<=2) return Double.parseDouble(Exp);
+        if (Exp.length() <= 2) return Double.parseDouble(Exp);
         Double Numbers[] = getNumbers(Exp);
         Character Operators[] = getOperators(Exp);
         if (Numbers.length <= 1)
-            return Numbers[0];
-        System.out.println(Numbers[0]);
+            return Double.parseDouble(Exp);
         Double result = Numbers[0];
         int i = 1;
         for (char operator : Operators)
@@ -71,7 +77,6 @@ public class Eval_operations {
             startIndex = Exp.lastIndexOf('(') + 1;
             endIndex = Exp.indexOf(')', startIndex);
         }
-
         return Exp;
     }
 

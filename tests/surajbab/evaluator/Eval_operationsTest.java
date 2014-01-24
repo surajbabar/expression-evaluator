@@ -24,6 +24,38 @@ public class Eval_operationsTest {
         assertArrayEquals(expected, actual);
     }
     @Test
+    public void testGetOperatorsReplacesOperatorFollowedByPlus() throws Exception {
+        Character[] expected={'+', '-', '*', '^'};
+        Character[] actual=operations.getOperators("a++c+-d*a^p");
+        assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void testGetOperatorsReplacesTwoMinusToPlus() throws Exception {
+        Character[] expected={'+', '+', '*', '^'};
+        Character[] actual=operations.getOperators("a++c--d*a^p");
+        assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void testGetOperatorsReplacesDoubleOperatorsWithSpecialChars() throws Exception {
+        Character[] expected={'@', '#', '_', '^'};
+        Character[] actual=operations.getOperators("a*-c/-d^-a^p");
+        assertArrayEquals(expected, actual);
+    }
+    @Test
+    public void testSolveExpressionGivesCorrectResultFor_PowerMinusOperator() throws Exception {
+        Double expected=0.2;
+        Double actual=operations.solveExpression("2*-3/-4^-1^4");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testSolveExpressionGivesCorrectResultFor_MinusNumberInBracket() throws Exception {
+        Double expected=0.2;
+        String expression =operations.solveBracket("2*-3/(-4)^-1^4");
+        Double actual =operations.solveExpression(expression);
+        assertEquals(expected, actual);
+    }
+    @Test
     public void testCalculateGivesResultOfTwoNumbersAndPlus() throws Exception {
         double actual=operations.calculate(34.43,'+',43.34);
         assertEquals(77.77000000000001, actual);
@@ -82,7 +114,7 @@ public class Eval_operationsTest {
     }
     @Test
     public void testSolveBracketsGivesStringBackIfItIsNotSolvable() throws Exception {
-        String expected ="3-+4)-2";
+        String expected ="3-4.0-2";
         String actual=operations.solveBracket("3-(+4)-2");
         assertEquals(expected, actual);
     }

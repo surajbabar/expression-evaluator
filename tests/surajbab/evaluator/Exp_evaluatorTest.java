@@ -108,7 +108,7 @@ public class Exp_evaluatorTest {
     }
     @Test
     public void testEvaluateForTwoPositiveIntegersWithMultipleBrackets2() throws Exception {
-        assertEquals(376.0, expression.evaluate("((345)+32-(0   +1))"));
+        assertEquals(376.0, expression.evaluate("((345)++32-(0   +1))"));
     }
     @Test
     public void testEvaluateForAnyNumberWithAnyOperatorAndMultipleBrackets() throws Exception {
