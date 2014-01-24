@@ -11,10 +11,11 @@ public class Eval_operations {
 
         String numbersInString[] = numbers.split(" ");
         Double[] Numbers = new Double[numbersInString.length];
-
-        for (int i = 0; i < numbersInString.length; i++)
-            Numbers[i] = Double.parseDouble(numbersInString[i]);
-
+        int j=0;
+        for (int i = 0; i < numbersInString.length; i++){
+            if(numbersInString[i].isEmpty()) continue;
+            Numbers[j++] = Double.parseDouble(numbersInString[i]);
+        }
         return Numbers;
     }
 
@@ -47,10 +48,12 @@ public class Eval_operations {
     }
 
     public Double solveExpression(String Exp) {
+        if(Exp.length()<=2) return Double.parseDouble(Exp);
         Double Numbers[] = getNumbers(Exp);
         Character Operators[] = getOperators(Exp);
-        if (Numbers.length == 1)
+        if (Numbers.length <= 1)
             return Numbers[0];
+        System.out.println(Numbers[0]);
         Double result = Numbers[0];
         int i = 1;
         for (char operator : Operators)
